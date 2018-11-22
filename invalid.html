@@ -1,0 +1,84 @@
+<html>
+	<head>
+		<title>sales login page</title>
+		<style>
+.div1 {
+    border-radius: 5px;
+    background-color: #ffffff;
+    padding: 100px;
+	width: 40%;
+	margin: auto;
+}
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=password], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+.div2{   text-align: center;
+}
+.div3{   position:absolute;
+color:red;margin-top: 230px;
+margin-left: 600px;
+}
+		</style>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+		<script>
+		var app=angular.module('app',[]);
+		app.controller('ctrl',function($scope,$http){
+		$scope.submit=function(){
+		$http.post('http://localhost:2312/login',{params:{user:$scope.uname,pass:$scope.passo}}).then(function(response){
+		if(response.data==='done')           
+            {
+                window.location.href="/empdata";
+            }
+			});
+			}
+			});		
+		</script>
+	</head>
+	<body background ="backimage.jpg">
+	<div ng-app="app" ng-controller="ctrl">
+		<img src="saleimage.jpg" width="150px"/>
+		<form >
+			<div class="div1">
+			<h4  style="color:red;">Invalid login id or password</h4>
+Username:<input type ="text" placeholder="Please enter the username" ng-model="uname" required />
+				<br/>
+				<br/>
+Password:<input type ="text" placeholder="Please enter the password"  ng-model="passo"  required />
+				<br/>
+				<input type ="submit" value =" login"  ng-click="submit()" />
+				<input type ="checkbox" id="b3">show password
+			</div>
+			</div>
+		</body>
+	</html>

@@ -1,0 +1,102 @@
+<html>
+	<head>
+		<title>sales login page</title>
+		<style>
+.div1 {
+    border-radius: 5px;
+    background-color: #ffffff;
+    padding: 100px;
+	width: 40%;
+	margin: auto;
+}
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=password], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+.div2{   text-align: center;
+}
+.div3{   position:absolute;
+color:red;margin-top: 230px;
+margin-left: 600px;
+}
+		</style>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
+		<script>
+		var app=angular.module('app',['ngSanitize']);
+		app.controller('ctrl',function($scope,$http){
+		$scope.submit=function(){
+		$http.get('http://localhost:2312/check',{params:{user:$scope.uname,pass:$scope.passo}}).then(function(response){
+		if(response.data==='purchase')
+		{
+		 window.location.href="/purchas";
+		
+		
+		}
+		else if(response.data==='undone')     
+            {
+                $scope.myText = " <h5 style='color:red;' >Invalid login id or password</h5>";
+            }
+			else if(response.data==='done')
+			{
+			$http.post('http://localhost:2312/login',{params:{user:$scope.uname,pass:$scope.passo}}).then(function(response){
+			if(response.data==='done')           
+            {
+                window.location.href="/admin";
+            }
+			});
+			}
+			});
+			}
+			});			
+		</script>
+	</head>
+	<body background ="backimage.jpg">
+	<div ng-app="app" ng-controller="ctrl">
+		<img src="saleimage.jpg" width="150px"/>
+		
+			<div class="div1">
+		<p ng-bind-html="myText"></p>	
+			<form>
+Username:<input type ="text" placeholder="Please enter the username" ng-model="uname" required />
+				<br/>
+				<br/>
+Password:<input type ="text" placeholder="Please enter the password"  ng-model="passo"  required />
+				<br/>
+				<input type ="submit" value =" login"  ng-click="submit()" />
+				<input type ="checkbox" id="b3">show password
+				</form>
+					</div>
+			</div>
+		</body>
+	</html>

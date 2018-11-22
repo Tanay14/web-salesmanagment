@@ -1,0 +1,117 @@
+<html>
+	<head>
+		<title>sales login page</title>
+		<style>
+.div1 {
+    border-radius: 5px;
+    background-color: #ffffff;
+    padding: 50px;
+	width: 40%;
+	margin: auto;
+}
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=password], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+.div2{   text-align: center;
+}
+.div3{   position:absolute;
+color:red;margin-top: 230px;
+margin-left: 600px;
+}
+		</style>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+		<script>
+		 var app = angular.module('app', []);
+			app.controller('ctrl', function($scope,$http) {
+			/*function getdata(){
+                $http.get("/payedata").then(function (response) {
+                  console.log("list response");
+				  console.log(response);
+				  console.log(response.data[0].item);
+                    $scope.desc = response.data[0].item;
+					$scope.quan = response.data[0].qty;
+					$scope.rupe = response.data[0].finalprice;
+                });
+				}
+				getdata();*/
+				function getdata(){
+				$scope.aaa =false;
+                $http.get("/final").then(function (response) {
+                  console.log("list response");
+				  console.log(response);
+                    $scope.listOfitem = response.data;
+                });
+				}
+				getdata();
+				$scope.remove = function (){
+				$scope.aaa = true;
+				$http.get("/remove",{params:{item:$scope.remove}}).then(function (response) {
+				console.log("list response");
+				//getdata();
+				}
+				});
+				
+		</script>
+	</head>
+	<body style="background-color: #80aaff;">
+	<div ng-app="app" ng-controller="ctrl">
+		
+			<div class="div1">
+			
+			
+			
+			<center><h1>PAYMENT PAGE</h1></center>
+			<table>
+			<tr>
+			<th>ITEM DESCRIPTION</th><th>ITEM QUANTITY</th><th>AMOUNT IN RUPEEES</th>
+			</tr>
+		<tr >
+		 <tr ng-repeat = 'emp in listOfitem'>
+                    <td>{{emp.item}}</td>
+                    <td>{{emp.qty}}</td>
+                    <td>{{emp.finalprice}}</td>
+                </tr>
+				</table>
+				<input type ="submit" value =" PAY"  ng-click="submit()" />
+				<input type ="button" value =" Remove"  ng-click="remove()" />
+				<span ng-show="aaa" ng-module="spn1" >
+				<input type ="number" ng-module="remove"/></span>
+				
+				<!--<input type ="submit" value =" ADD MORE"  ng-click="addmore()" />-->
+				
+				
+					</div>
+			</div>
+		</body>
+	</html>

@@ -1,0 +1,131 @@
+<html>
+
+<head>
+	<title>purchase page</title>
+	<style>
+		#t1 tr:hover {background-color: #ddd;}
+		#t1 {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+}
+		#t1 th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color:#3e5b5b;
+    color: white;
+}
+
+
+		#t1 td, #t1 th {
+    border: 1px solid  #000000;
+    padding: 8px;
+}
+
+		input[type=submit] {
+    width: 30%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+		input[type=text], select {
+    width: 20%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+		table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+		th, td {
+    padding: 5px;
+    text-align: left;
+}
+		</style>
+			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script>
+	 var app = angular.module('app', []);
+			app.controller('ctrl', function($scope,$http) {
+			function getdata(){
+                $http.get("/data").then(function (response) {
+                  console.log("list response");
+				  console.log(response);
+                    $scope.listOfitem = response.data;
+                });
+				}
+				getdata();
+				
+				
+				 $scope.purchase = function () {
+                $http.get("/pur",
+				{params:{itemidi:$scope.text1,
+					qty:$scope.text2,
+					address:$scope.text3,
+					city:$scope.text4,
+					pincode:$scope.text5,
+					phone:$scope.text6,
+					}}).then(function (response) {
+                    console.log("purchase response");
+					 console.log(response);
+					  window.location.href="/paye";
+                });
+            }
+				
+				});
+		
+		</script>
+</head>
+
+<body style="background-color: #80aaff;">
+	<div ng-app="app" ng-controller="ctrl">
+	<div ng-if='listOfitem'>
+            <table border="1">
+			<h1>Item available</h1>
+                <tr>
+                <th>item_id</th>
+				<th>itemcode</th>
+				<th>item description</th>
+				<th>quantity on hand</th>
+				<th>price</th>
+                </tr>
+                <tr ng-repeat = 'emp in listOfitem'>
+                    <td>{{emp.itemid}}</td>
+                    <td>{{emp.itemcode}}</td>
+                    <td>{{emp.item}}</td>
+					<td>{{emp.quantity}}</td>
+				    <td>{{emp.price}}</td>
+                </tr>
+            </table>
+        </div>
+	<br />
+	<br />
+	<div>
+		<form>
+		Details:
+			<input type="text" ng-model="text1" placeholder="enter itemId" required />
+			<input type="text" ng-model="text2" placeholder="enter quantity" required />
+			<br><br>
+			Address:
+			<input type="text" ng-model="text3" placeholder="enter address" required />
+			<input type="text" ng-model="text4" placeholder="enter city" required />
+			<input type="text" ng-model="text5" placeholder="enter pincode" required />
+			<input type="text" ng-model="text6" placeholder="enter phone" required />
+			
+			<br />
+			<br />
+			<center>
+				<input type="submit" ng-click="purchase()" value="proceed to pay" />
+			</center>
+		</form>
+	</div>
+</body>
+
+</html>
