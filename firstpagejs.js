@@ -276,7 +276,9 @@ app.get('/final',function(req,res){
 	});
 	con.connect(function(err){
 		if(err) throw err;
-  con.query('select * from finalpurchase where itemid=',[sess.itemidi],
+		
+	console.log(sess.itemidi);
+  con.query('select * from finalpurchase',
   function(err,result,fields){
 	res.send(JSON.stringify(result));
   })
@@ -285,6 +287,7 @@ app.get('/final',function(req,res){
 
 app.get('/remove',function(req,res){
 	var item = req.query.item;
+	console.log("okk"+item);
 	var con=mysql.createConnection({
 		host:'localhost',
 		user:'root',
