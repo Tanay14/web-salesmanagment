@@ -287,7 +287,7 @@ app.get('/final',function(req,res){
 
 app.get('/remove',function(req,res){
 	var item = req.query.item;
-	console.log("okk"+item);
+	//console.log("okk"+item);
 	var con=mysql.createConnection({
 		host:'localhost',
 		user:'root',
@@ -296,7 +296,7 @@ app.get('/remove',function(req,res){
 	});
 	con.connect(function(err){
 		if(err) throw err;
-		con.connect('delete from finalpurchase where item=?',[item],function(err,result,fields){
+		con.connect('delete from finalpurchase where itemid=?',[item],function(err,result,fields){
 			res.sennd(JSON.stringify(result));
 		})
 	
