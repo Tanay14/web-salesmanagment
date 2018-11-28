@@ -74,22 +74,23 @@ margin-left: 600px;
                 });
 				}
 				getdata();
-				$scope.remove = function (){
-				$scope.aaa = true; /* 
-				$http.get("/remove",{params:{item:$scope.remove}}).then(function (response) {
+				$scope.remove = function (itemid){
+				//$scope.aaa = true; 
+				$http.get("/remove",{params:{item:itemid}}).then(function (response) {
 				console.log("list response");
-				//getdata();
-				})*/
+				getdata();
+				})
 				}
-				
-				$scope.remove5 = function (){
-				console.log($scope.removetxt);
+				/*
+				$scope.remove = function (){
+				console.log($scope.);
 				//$scope.aaa = true; /* 
 				$http.get("/remove",{params:{item:$scope.removetxt}}).then(function (response) {
 				console.log("list response");
 				//getdata();
 				})
-				}});
+				}*/
+				});
 				
 				
 		</script>
@@ -108,9 +109,11 @@ margin-left: 600px;
 			</tr>
 		<tr >
 		 <tr ng-repeat ='emp in listOfitem'>
+					<td>{{emp.itemid}}</td>	
                     <td>{{emp.item}}</td>
                     <td>{{emp.qty}}</td>
                     <td>{{emp.finalprice}}</td>
+					<td><button ng-click='remove($emp.itemid)'>Remove</button></td>
                 </tr>
 				</table>
 				<input type ="submit" value =" PAY"  ng-click="submit()" />
