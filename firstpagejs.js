@@ -249,7 +249,7 @@ app.get('/pur',function(req,res){
 			console.log(id);
 			console.log(result[0].itemcode);
 			
-			con.query('insert into finalpurchase(itemid,itemcode,item,qty,finalprice) values(?,?,?,?,?)',[sess.itemidi,sess.pitemco,sess.pitem,sess.qty,sess.pitempr],
+			con.query('insert into finalpurchase(itemid,itemcode,qty,finalprice,item) values(?,?,?,?,?)',[sess.itemidi,sess.pitemco,sess.qty,sess.pitempr,sess.pitem],
 			function(err,result1,fields){
 				console.log('data inserted finalpurchase');
 			
@@ -296,7 +296,7 @@ app.get('/remove',function(req,res){
 	});
 	con.connect(function(err){
 		if(err) throw err;
-		con.connect('delete from finalpurchase where itemid=?',[item],function(err,result,fields){
+		con.connect('delete from finalpurchase where indx=?',[item],function(err,result,fields){
 			res.sennd(JSON.stringify(result));
 		})
 	
