@@ -69,14 +69,16 @@ margin-left: 600px;
 				$scope.aaa =false;
                 $http.get("/final").then(function (response) {
                   console.log("list response");
-				  console.log(response);
+				  //console.log(response);
                     $scope.listOfitem = response.data;
                 });
 				}
 				getdata();
-				$scope.remove = function (itemid){
+				$scope.remove = function (index){
 				//$scope.aaa = true; 
-				$http.get("/remove",{params:{item:itemid}}).then(function (response) {
+				console.log(index);
+				
+				$http.get("/remove",{params:{item:index}}).then(function (response) {
 				console.log("list response");
 				getdata();
 				})
@@ -99,29 +101,28 @@ margin-left: 600px;
 	<div ng-app="app" ng-controller="ctrl">
 		
 			<div class="div1">
-			
-			
-			
 			<center><h1>PAYMENT PAGE</h1></center>
 			<table>
 			<tr>
-			<th>ITEM DESCRIPTION</th><th>ITEM QUANTITY</th><th>AMOUNT IN RUPEEES</th>
+			<th>ITEM ID</th><th>ITEM DESCRIPTION</th><th>ITEM QUANTITY</th><th>AMOUNT IN RUPEEES</th>
 			</tr>
 		<tr >
 		 <tr ng-repeat ='emp in listOfitem'>
-					<td>{{emp.itemid}}</td>	
+					<td>{{$index}}</td>	
                     <td>{{emp.item}}</td>
                     <td>{{emp.qty}}</td>
                     <td>{{emp.finalprice}}</td>
-					<td><button ng-click='remove($emp.itemid)'>Remove</button></td>
+					<td><div><button ng-click="remove($index)">Remove</button></div></td>
+					
                 </tr>
 				</table>
+				
 				<input type ="submit" value =" PAY"  ng-click="submit()" />
 				
-				<input type ="button" value ="Remove"  ng-click="remove()" />
+				<!--<input type ="button" value ="Remove"  ng-click="remove()" />
 				<span ng-show="aaa" ng-module="spn1" ><form ng-submit="remove5()">
 				<input type ="number" ng-model="removetxt"/>
-				<input type="submit" value="ggg"></form></span>
+				<input type="submit" value="ggg"></form></span> -->
 				
 				<!--<input type ="submit" value =" ADD MORE"  ng-click="addmore()" />-->
 				
