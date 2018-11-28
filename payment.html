@@ -75,12 +75,22 @@ margin-left: 600px;
 				}
 				getdata();
 				$scope.remove = function (){
-				$scope.aaa = true;
+				$scope.aaa = true; /* 
 				$http.get("/remove",{params:{item:$scope.remove}}).then(function (response) {
 				console.log("list response");
 				//getdata();
+				})*/
 				}
-				});
+				
+				$scope.remove5 = function (){
+				console.log($scope.removetxt);
+				//$scope.aaa = true; /* 
+				$http.get("/remove",{params:{item:$scope.removetxt}}).then(function (response) {
+				console.log("list response");
+				//getdata();
+				})
+				}});
+				
 				
 		</script>
 	</head>
@@ -97,16 +107,18 @@ margin-left: 600px;
 			<th>ITEM DESCRIPTION</th><th>ITEM QUANTITY</th><th>AMOUNT IN RUPEEES</th>
 			</tr>
 		<tr >
-		 <tr ng-repeat = 'emp in listOfitem'>
+		 <tr ng-repeat ='emp in listOfitem'>
                     <td>{{emp.item}}</td>
                     <td>{{emp.qty}}</td>
                     <td>{{emp.finalprice}}</td>
                 </tr>
 				</table>
 				<input type ="submit" value =" PAY"  ng-click="submit()" />
-				<input type ="button" value =" Remove"  ng-click="remove()" />
-				<span ng-show="aaa" ng-module="spn1" >
-				<input type ="number" ng-module="remove"/></span>
+				
+				<input type ="button" value ="Remove"  ng-click="remove()" />
+				<span ng-show="aaa" ng-module="spn1" ><form ng-submit="remove5()">
+				<input type ="number" ng-model="removetxt"/>
+				<input type="submit" value="ggg"></form></span>
 				
 				<!--<input type ="submit" value =" ADD MORE"  ng-click="addmore()" />-->
 				
